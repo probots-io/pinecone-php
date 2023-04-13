@@ -1,0 +1,49 @@
+{
+  "name": "probots-io/pinecone-php",
+  "description": "Unofficial PHP Client for Pinecone Vector Database (pinecone.io)",
+  "type": "library",
+  "keywords": [
+    "pinecone",
+    "vector",
+    "database",
+    "sdk",
+    "client"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcus Pohorely",
+      "email": "marcus@probots.io"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "sammyjo20/saloon": "^2.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Probots\\Pinecone\\": "src/",
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "pestphp/pest": "^2.4",
+    "vlucas/phpdotenv": "^5.5",
+    "symfony/var-dumper": "^6.2",
+    "pestphp/pest-plugin-watch": "^2.0",
+    "pestphp/pest-plugin-faker": "^2.0"
+  },
+  "scripts": {
+    "test": "pest",
+    "test:watch": "pest --watch"
+  },
+  "scripts-descriptions": {
+    "test": "Run the tests",
+    "test:watch": "Run the tests & watch for changes"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"statusCode":200,"headers":{"content-type":"application\/json; charset=UTF-8","date":"Fri, 14 Apr 2023 19:42:12 GMT","x-envoy-upstream-service-time":"17","content-length":"79","server":"envoy"},"data":"{\"name\":\"pinecone-collect-php\",\"status\":\"Ready\",\"size\":3152292,\"dimension\":10}\n"}
