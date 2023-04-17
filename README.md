@@ -1,6 +1,6 @@
 # Pinecone PHP
 
-A beautiful, extendable PHP Package to communicate with your [pincone.io](https://pincone.io) indices, collections and
+A beautiful, extendable PHP Package to communicate with your [pinecone.io](https://pinecone.io) indices, collections and
 vectors, powered by [Saloon](https://github.com/sammyjo20/saloon).
 
 > **Info**
@@ -9,9 +9,9 @@ vectors, powered by [Saloon](https://github.com/sammyjo20/saloon).
 
 ## Introduction
 
-This API provides a feature rich, elegant baseline for working with the [pincone.io](https://pincone.io) API. Developers
+This API provides a feature rich, elegant baseline for working with the [pinecone.io](https://pinecone.io) API. Developers
 can
-install and leverage this API to help them integrate [pincone.io](https://pincone.io) easily and beautifully.
+install and leverage this API to help them integrate [pinecone.io](https://pinecone.io) easily and beautifully.
 
 ## Installation
 
@@ -19,13 +19,13 @@ install and leverage this API to help them integrate [pincone.io](https://pincon
 
 ## Features
 
-Currently supports all of the available endpoints in the [pincone.io](https://pincone.io) API based
+Currently supports all of the available endpoints in the [pinecone.io](https://pinecone.io) API based
 on [the official documentation](https://docs.pinecone.io/reference)
 
 ### Authentication
 
 Authentication via Api Key is the only available authentication methods currently supported.
-First, you will need to create an Api Key in your [pincone.io](https://pincone.io) instance.
+First, you will need to create an Api Key in your [pinecone.io](https://pinecone.io) instance.
 
 ```php
 use \Probots\Pinecone\Client as Pinecone;
@@ -79,7 +79,7 @@ if($response->successful()) {
 
 ### List Indices
 
-[Pincone Docs](https://docs.pinecone.io/reference/list_indexes)
+[Pinecone Docs](https://docs.pinecone.io/reference/list_indexes)
 
 ```php
 $response = $pinecone->index()->list();
