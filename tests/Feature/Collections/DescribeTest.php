@@ -1,6 +1,8 @@
 <?php
 
 
+use Probots\Pinecone\Requests\Exceptions\MissingNameException;
+
 it('can describe a collection', function () {
 
     $client = getClient(true);
@@ -11,3 +13,10 @@ it('can describe a collection', function () {
         ->and($response->json('name'))->toBe(getCollectionName());
 
 });
+
+it('throws missing name exception', function () {
+
+    $client = getClient(true);
+    $client->collections()->describe();
+
+})->throws(MissingNameException::class);

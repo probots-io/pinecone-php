@@ -1,5 +1,7 @@
 <?php
 
+use Probots\Pinecone\Requests\Exceptions\MissingNameException;
+
 it('can describe an index', function () {
 
     $client = getClient(true);
@@ -10,3 +12,10 @@ it('can describe an index', function () {
         ->and($response->json('database.name'))->toBe(getIndexName());
 
 });
+
+it('throws missing name exception', function () {
+
+    $client = getClient(true);
+    $client->index()->describe();
+
+})->throws(MissingNameException::class);

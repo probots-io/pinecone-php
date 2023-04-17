@@ -6,13 +6,18 @@ use Probots\Pinecone\Resources\CollectionResource;
 use Probots\Pinecone\Resources\IndexResource;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 
 class Client extends Connector
 {
-    use AcceptsJson;
+    use AcceptsJson, AlwaysThrowOnErrors;
 
-    private $index = null;
+    protected ?string $response = Response::class;
 
+    /**
+     * @param string $apiKey
+     * @param string $environment
+     */
     public function __construct(
         public string $apiKey,
         public string $environment,
@@ -22,8 +27,6 @@ class Client extends Connector
     }
 
     /**
-     * The Base URL of the API
-     *
      * @return string
      */
     public function resolveBaseUrl(): string
@@ -31,20 +34,26 @@ class Client extends Connector
         return 'https://controller.' . $this->environment . '.pinecone.io';
     }
 
+    /**
+     * @param string|null $name
+     * @return IndexResource
+     */
     public function index(?string $name = null): IndexResource
     {
         return new IndexResource($this, $name);
     }
 
+    /**
+     * @param string|null $name
+     * @return CollectionResource
+     */
     public function collections(?string $name = null): CollectionResource
     {
         return new CollectionResource($this, $name);
     }
 
     /**
-     * Default headers for every request
-     *
-     * @return string[]
+     * @return array
      */
     protected function defaultHeaders(): array
     {
@@ -53,16 +62,6 @@ class Client extends Connector
             'Accept' => 'application/json;',
             'Content-Type' => 'application/json'
         ];
-    }
-
-    /**
-     * Default HTTP client options
-     *
-     * @return string[]
-     */
-    protected function defaultConfig(): array
-    {
-        return [];
     }
 
 }

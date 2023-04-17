@@ -1,5 +1,7 @@
 <?php
 
+use Probots\Pinecone\Requests\Exceptions\MissingNameException;
+
 it('can delete an index', function () {
 
     $client = getClient(true);
@@ -9,3 +11,10 @@ it('can delete an index', function () {
     expect($response->status())->toBe(202);
 
 });
+
+it('throws missing name exception', function () {
+
+    $client = getClient(true);
+    $client->index()->delete();
+
+})->throws(MissingNameException::class);

@@ -31,7 +31,8 @@
     "vlucas/phpdotenv": "^5.5",
     "symfony/var-dumper": "^6.2",
     "pestphp/pest-plugin-watch": "^2.0",
-    "pestphp/pest-plugin-faker": "^2.0"
+    "pestphp/pest-plugin-faker": "^2.0",
+    "phpstan/phpstan": "^1.10"
   },
   "scripts": {
     "test": "pest",
