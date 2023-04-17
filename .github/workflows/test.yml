@@ -17,6 +17,9 @@ jobs:
           tools: composer:v2
           coverage: xdebug
 
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.github', '.env');"
+
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
