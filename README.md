@@ -7,9 +7,12 @@ vectors, powered by [Saloon](https://github.com/sammyjo20/saloon).
 > This package is still in active development, but is already used in some production scenarios.
 > Check Todo list below for more information what's missing.
 
+[![probots.io](art/probots-banner-1000x400.png)](https://probots.io)
+
 ## Introduction
 
-This API provides a feature rich, elegant baseline for working with the [pinecone.io](https://pinecone.io) API. Developers
+This API provides a feature rich, elegant baseline for working with the [pinecone.io](https://pinecone.io) API.
+Developers
 can
 install and leverage this API to help them integrate [pinecone.io](https://pinecone.io) easily and beautifully.
 

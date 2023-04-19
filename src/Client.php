@@ -2,13 +2,14 @@
 
 namespace Probots\Pinecone;
 
+use Probots\Pinecone\Contracts\ClientContract;
 use Probots\Pinecone\Resources\CollectionResource;
 use Probots\Pinecone\Resources\IndexResource;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 
-class Client extends Connector
+class Client extends Connector implements ClientContract
 {
     use AcceptsJson, AlwaysThrowOnErrors;
 
