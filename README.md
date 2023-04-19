@@ -274,19 +274,6 @@ if($response->successful()) {
 Testing is done via PestPHP. You can run the tests by running `./vendor/bin/pest` in the root of the project.
 Copy .env.example to .env and update accordingly.
 
-## Changelog
-
-Please see [releases](https://github.com/njoguamos/laravel-plausible/releases) for more information on what has changed
-recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
 
 - [Marcus Pohorely](https://github.com/derpoho)

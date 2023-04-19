@@ -18,7 +18,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": "^8.1",
     "sammyjo20/saloon": "^2.5"
   },
   "autoload": {
