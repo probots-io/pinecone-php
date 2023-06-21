@@ -1,10 +1,9 @@
 <?php
 
-namespace Probots\Pinecone\Requests\Exceptions;
+namespace Probots\Pinecone\Exceptions;
 
 use Saloon\Exceptions\SaloonException;
 
 class MissingNameException extends SaloonException
 {
-
 }
