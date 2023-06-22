@@ -3,8 +3,10 @@
 namespace Probots\Pinecone;
 
 use Probots\Pinecone\Contracts\ClientContract;
+use Probots\Pinecone\Requests\Index\Vectors\Fetch;
 use Probots\Pinecone\Resources\CollectionResource;
 use Probots\Pinecone\Resources\IndexResource;
+use Psr\Http\Message\RequestInterface;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
@@ -24,7 +26,12 @@ class Client extends Connector implements ClientContract
         public string $environment,
     )
     {
-        //
+        // (Temporary) Workaround for https://github.com/probots-io/pinecone-php/issues/3
+        $this->sender()->addMiddleware(function (callable $handler) {
+            return function (RequestInterface $request, array $options) use ($handler) {
+                return $handler(Fetch::queryIdsWorkaround($request), $options);
+            };
+        });
     }
 
     /**
@@ -59,8 +66,8 @@ class Client extends Connector implements ClientContract
     protected function defaultHeaders(): array
     {
         return [
-            'Api-Key' => $this->apiKey,
-            'Accept' => 'application/json;',
+            'Api-Key'      => $this->apiKey,
+            'Accept'       => 'application/json;',
             'Content-Type' => 'application/json'
         ];
     }

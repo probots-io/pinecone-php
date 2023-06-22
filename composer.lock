@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "760343fb0fab27bfb0bef22c880caa95",
+    "content-hash": "0224961b36bd85899ef9a3f6791a8e0c",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -543,28 +543,28 @@
         },
         {
             "name": "sammyjo20/saloon",
-            "version": "v2.5.0",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Sammyjo20/Saloon.git",
-                "reference": "81c95a3b65fe7de183e73153a4a3003d28c300e9"
+                "reference": "e6d3017ad233c61430fb2d3c8b6c801069df0b58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Sammyjo20/Saloon/zipball/81c95a3b65fe7de183e73153a4a3003d28c300e9",
-                "reference": "81c95a3b65fe7de183e73153a4a3003d28c300e9",
+                "url": "https://api.github.com/repos/Sammyjo20/Saloon/zipball/e6d3017ad233c61430fb2d3c8b6c801069df0b58",
+                "reference": "e6d3017ad233c61430fb2d3c8b6c801069df0b58",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^7.5",
-                "guzzlehttp/promises": "^1.5",
+                "guzzlehttp/promises": "^1.5 || ^2.0",
                 "php": "^8.1",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.1 || ^2.0"
             },
             "require-dev": {
                 "ext-simplexml": "*",
                 "friendsofphp/php-cs-fixer": "^3.5",
-                "illuminate/collections": "^9.39",
+                "illuminate/collections": "^9.39 || ^10.0",
                 "league/flysystem": "^3.0",
                 "pestphp/pest": "^2.2.3",
                 "phpstan/phpstan": "^1.9",
@@ -603,15 +603,19 @@
             ],
             "support": {
                 "issues": "https://github.com/Sammyjo20/Saloon/issues",
-                "source": "https://github.com/Sammyjo20/Saloon/tree/v2.5.0"
+                "source": "https://github.com/Sammyjo20/Saloon/tree/v2.7.0"
             },
             "funding": [
+                {
+                    "url": "https://github.com/sammyjo20",
+                    "type": "github"
+                },
                 {
                     "url": "https://ko-fi.com/sammyjo20",
                     "type": "ko_fi"
                 }
             ],
-            "time": "2023-03-25T16:47:08+00:00"
+            "time": "2023-06-15T16:50:10+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -5211,7 +5215,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0"
+        "php": "^8.1"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

@@ -2,6 +2,7 @@
 
 namespace Probots\Pinecone\Requests\Index\Vectors;
 
+use GuzzleHttp\Psr7\Query;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
@@ -45,8 +46,26 @@ class Fetch extends Request implements HasBody
         protected array   $index,
         protected array   $ids,
         protected ?string $namespace = null,
-    )
+    ) {}
+
+    /**
+     * @param $request
+     * @return \GuzzleHttp\Psr7\Request
+     *
+     * This is a workaround for https://github.com/probots-io/pinecone-php/issues/3
+     * It remaps ids[]=1&ids[]=2 to ids=1&ids=2
+     */
+    public static function queryIdsWorkaround($request): \GuzzleHttp\Psr7\Request
     {
+        $requestUri = $request->getUri();
+
+        if ($requestUri->getPath() === '/vectors/fetch') {
+            $queryString = $requestUri->getQuery();
+            parse_str(urldecode($queryString), $data);
+            return $request->withUri($requestUri->withQuery(Query::build($data)));
+        }
+
+        return $request;
     }
 
     /**
@@ -54,13 +73,19 @@ class Fetch extends Request implements HasBody
      */
     protected function defaultQuery(): array
     {
+//        $payload = [
+//            'ids' => implode(',', $this->ids), // 🙈
+//        ];
+
         $payload = [
-            'ids' => implode(',', $this->ids), // 🙈
+            'ids' => $this->ids
         ];
 
         if ($this->namespace) {
             $payload['namespace'] = $this->namespace;
         }
+
+//        dd(\GuzzleHttp\Psr7\Query::build(["ids" => $this->ids]));
 
         return $payload;
     }
