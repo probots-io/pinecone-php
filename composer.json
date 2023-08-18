@@ -19,7 +19,7 @@
   ],
   "require": {
     "php": "^8.1",
-    "sammyjo20/saloon": "^2.7"
+    "saloonphp/saloon": "^2.7"
   },
   "autoload": {
     "psr-4": {
