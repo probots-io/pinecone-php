@@ -1,7 +1,6 @@
 <?php
 
-
-use Probots\Pinecone\Requests\Exceptions\MissingNameException;
+use Probots\Pinecone\Exceptions\MissingNameException;
 
 it('can describe a collection', function () {
 
