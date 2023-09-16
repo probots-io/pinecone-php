@@ -1,4 +1,5 @@
 composer.phar
 /vendor/
+.idea
 .env
 .env.testing
