@@ -3,7 +3,7 @@
 namespace Probots\Pinecone\Resources;
 
 use Probots\Pinecone\Requests\Collections;
-use Probots\Pinecone\Requests\Exceptions\MissingNameException;
+use Probots\Pinecone\Exceptions\MissingNameException;
 use Saloon\Contracts\Connector;
 use Saloon\Contracts\Response;
 
