@@ -22,7 +22,7 @@ use Saloon\Traits\Body\HasJsonBody;
  *   typeUrl | string
  *   value | string
  */
-class Update extends Request implements HasBody
+class UpdateVector extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -46,9 +46,7 @@ class Update extends Request implements HasBody
         protected array   $sparseValues = [],
         protected array   $setMetadata = [],
         protected ?string $namespace = null,
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return string[]

@@ -33,7 +33,7 @@ use Saloon\Http\Request;
  * 404 | Index not found.
  * 500 | Internal error. Can be caused by invalid parameters.
  */
-class Describe extends Request
+class DescribeIndex extends Request
 {
     /**
      * @var Method
@@ -45,9 +45,7 @@ class Describe extends Request
      */
     public function __construct(
         protected string $name,
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return string

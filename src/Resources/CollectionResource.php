@@ -3,7 +3,7 @@
 namespace Probots\Pinecone\Resources;
 
 use Probots\Pinecone\Requests\Collections;
-use Probots\Pinecone\Exceptions\MissingNameException;
+use Probots\Pinecone\Requests\Exceptions\MissingNameException;
 use Saloon\Contracts\Connector;
 use Saloon\Contracts\Response;
 
@@ -36,7 +36,7 @@ class CollectionResource extends Resource
      */
     public function create(string $name, string $source): Response
     {
-        return $this->connector->send(new Collections\Create($name, $source));
+        return $this->connector->send(new Collections\CreateCollection($name, $source));
     }
 
 
@@ -48,7 +48,7 @@ class CollectionResource extends Resource
     {
         $this->validateName();
 
-        return $this->connector->send(new Collections\Describe($this->name));
+        return $this->connector->send(new Collections\DescribeCollection($this->name));
     }
 
     /**
@@ -56,7 +56,7 @@ class CollectionResource extends Resource
      */
     public function list(): Response
     {
-        return $this->connector->send(new Collections\All());
+        return $this->connector->send(new Collections\ListCollections());
     }
 
     /**
@@ -67,6 +67,6 @@ class CollectionResource extends Resource
     {
         $this->validateName();
 
-        return $this->connector->send(new Collections\Delete($this->name));
+        return $this->connector->send(new Collections\DeleteCollection($this->name));
     }
 }

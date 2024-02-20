@@ -64,7 +64,7 @@ class IndexResource extends Resource
     {
         $this->validateName();
 
-        return $this->connector->send(new Index\Describe($this->name));
+        return $this->connector->send(new Index\DescribeIndex($this->name));
     }
 
     /**
@@ -89,7 +89,7 @@ class IndexResource extends Resource
         null|string $sourceCollection = null
     ): Response
     {
-        return $this->connector->send(new Index\Create(
+        return $this->connector->send(new Index\CreateIndex(
             name: $name,
             dimension: $dimension,
             metric: $metric,
@@ -106,7 +106,7 @@ class IndexResource extends Resource
      */
     public function list(): Response
     {
-        return $this->connector->send(new Index\All());
+        return $this->connector->send(new Index\ListIndexes());
     }
 
     /**
@@ -120,7 +120,7 @@ class IndexResource extends Resource
     {
         $this->validateName();
 
-        return $this->connector->send(new Index\Configure($this->name, $replicas, $pod_type));
+        return $this->connector->send(new Index\ConfigureIndex($this->name, $replicas, $pod_type));
     }
 
     /**
@@ -131,6 +131,6 @@ class IndexResource extends Resource
     {
         $this->validateName();
 
-        return $this->connector->send(new Index\Delete($this->name));
+        return $this->connector->send(new Index\DeleteIndex($this->name));
     }
 }

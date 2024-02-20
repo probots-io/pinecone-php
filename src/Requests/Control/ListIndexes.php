@@ -12,7 +12,7 @@ use Saloon\Http\Request;
  * @response
  * array of strings "$indexName"
  */
-class All extends Request
+class ListIndexes extends Request
 {
     /**
      * @var Method

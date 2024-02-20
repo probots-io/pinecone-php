@@ -29,7 +29,7 @@ use Saloon\Http\Request;
  *   typeUrl | string
  *   value | string
  */
-class DescribeStats extends Request
+class DescribeIndexStats extends Request
 {
     /**
      * @var Method
@@ -43,9 +43,7 @@ class DescribeStats extends Request
     public function __construct(
         protected array $index,
         protected array $filter = []
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return string

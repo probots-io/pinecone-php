@@ -25,7 +25,7 @@ class VectorResource extends Resource
      */
     public function stats(): Response
     {
-        return $this->connector->send(new Vectors\DescribeStats($this->index));
+        return $this->connector->send(new Vectors\DescribeIndexStats($this->index));
     }
 
     /**
@@ -44,7 +44,7 @@ class VectorResource extends Resource
     {
 
 
-        return $this->connector->send(new Vectors\Update($this->index, id: $id, values: $values, sparseValues: $sparseValues, setMetadata: $setMetadata, namespace: $namespace));
+        return $this->connector->send(new Vectors\UpdateVector($this->index, id: $id, values: $values, sparseValues: $sparseValues, setMetadata: $setMetadata, namespace: $namespace));
     }
 
     /**
@@ -54,7 +54,7 @@ class VectorResource extends Resource
      */
     public function upsert(array $vectors, ?string $namespace = null): Response
     {
-        return $this->connector->send(new Vectors\Upsert($this->index, $vectors, $namespace));
+        return $this->connector->send(new Vectors\UpsertVectors($this->index, $vectors, $namespace));
     }
 
     /**
@@ -77,7 +77,7 @@ class VectorResource extends Resource
         ?string $id = null
     ): Response
     {
-        return $this->connector->send(new Vectors\Query($this->index, vector: $vector, namespace: $namespace, filter: $filter, topK: $topK, includeMetadata: $includeMetadata, includeVector: $includeVector, id: $id));
+        return $this->connector->send(new Vectors\QueryVectors($this->index, vector: $vector, namespace: $namespace, filter: $filter, topK: $topK, includeMetadata: $includeMetadata, includeVector: $includeVector, id: $id));
     }
 
     /**
@@ -94,7 +94,7 @@ class VectorResource extends Resource
         array   $filter = []
     ): Response
     {
-        return $this->connector->send(new Vectors\Delete($this->index, ids: $ids, namespace: $namespace, deleteAll: $deleteAll, filter: $filter));
+        return $this->connector->send(new Vectors\DeleteVectors($this->index, ids: $ids, namespace: $namespace, deleteAll: $deleteAll, filter: $filter));
     }
 
     /**
@@ -104,6 +104,6 @@ class VectorResource extends Resource
      */
     public function fetch(array $ids, ?string $namespace = null): Response
     {
-        return $this->connector->send(new Vectors\Fetch($this->index, ids: $ids, namespace: $namespace));
+        return $this->connector->send(new Vectors\FetchVectors($this->index, ids: $ids, namespace: $namespace));
     }
 }

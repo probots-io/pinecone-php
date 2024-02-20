@@ -28,7 +28,7 @@ use Saloon\Traits\RequestProperties\HasQuery;
  *   typeUrl | string
  *   value | string
  */
-class Fetch extends Request implements HasBody
+class FetchVectors extends Request implements HasBody
 {
     use HasJsonBody, HasQuery;
 

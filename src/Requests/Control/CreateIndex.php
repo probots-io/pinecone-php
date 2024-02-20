@@ -28,7 +28,7 @@ use Saloon\Traits\Body\HasJsonBody;
  * 409 | Index of given name already exists.
  * 500 | Internal error. Can be caused by invalid parameters.
  */
-class Create extends Request implements HasBody
+class CreateIndex extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -56,10 +56,7 @@ class Create extends Request implements HasBody
         protected ?string $pod_type = 'p1.x1',
         protected ?array  $metadataConfig = null,
         protected ?string $sourceCollection = null,
-    )
-    {
-
-    }
+    ) {}
 
     /**
      * @return string
@@ -75,12 +72,12 @@ class Create extends Request implements HasBody
     protected function defaultBody(): array
     {
         $payload = [
-            'name' => $this->name,
+            'name'      => $this->name,
             'dimension' => $this->dimension,
-            'metric' => $this->metric,
-            'pods' => $this->pods,
-            'replicas' => $this->replicas,
-            'pod_type' => $this->pod_type,
+            'metric'    => $this->metric,
+            'pods'      => $this->pods,
+            'replicas'  => $this->replicas,
+            'pod_type'  => $this->pod_type,
         ];
 
         if ($this->metadataConfig !== null) {

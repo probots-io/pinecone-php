@@ -28,7 +28,7 @@ use Saloon\Traits\Body\HasJsonBody;
  *   typeUrl | string
  *   value | string
  */
-class Delete extends Request implements HasBody
+class DeleteVectors extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -50,9 +50,7 @@ class Delete extends Request implements HasBody
         protected ?string $namespace = null,
         protected bool    $deleteAll = false,
         protected array   $filter = []
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return string

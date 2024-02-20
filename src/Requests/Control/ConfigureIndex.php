@@ -1,6 +1,6 @@
 <?php
 
-namespace Probots\Pinecone\Requests\Collections;
+namespace Probots\Pinecone\Requests\Index;
 
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Contracts\Response;
@@ -9,45 +9,46 @@ use Saloon\Http\Request;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * @link https://docs.pinecone.io/reference/create_collection
+ * @link https://docs.pinecone.io/reference/configure_index
  *
  * @param string $name
- * @param string $source
+ * @param int $replicas
+ * @param string $pod_type
  *
  * @response
  * string ""
  *
  * @error_codes
- * 400 | Bad request. Request exceeds quota or collection name is invalid.
- * 409 | A collection with the name provided already exists.
+ * 400 | Bad request,not enough quota.
+ * 404 | Index not found.
  * 500 | Internal error. Can be caused by invalid parameters.
  */
-class Create extends Request implements HasBody
+class ConfigureIndex extends Request implements HasBody
 {
     use HasJsonBody;
 
     /**
      * @var Method
      */
-    protected Method $method = Method::POST;
+    protected Method $method = Method::PATCH;
 
     /**
      * @param string $name
-     * @param string $source
+     * @param int $replicas
+     * @param string $pod_type
      */
     public function __construct(
         protected string $name,
-        protected string $source,
-    )
-    {
-    }
+        protected int    $replicas,
+        protected string $pod_type
+    ) {}
 
     /**
      * @return string
      */
     public function resolveEndpoint(): string
     {
-        return '/collections';
+        return '/databases/' . $this->name;
     }
 
     /**
@@ -56,8 +57,8 @@ class Create extends Request implements HasBody
     protected function defaultBody(): array
     {
         return [
-            'name' => $this->name,
-            'source' => $this->source,
+            'replicas' => $this->replicas,
+            'pod_type' => $this->pod_type,
         ];
     }
 
@@ -67,7 +68,6 @@ class Create extends Request implements HasBody
      */
     public function hasRequestFailed(Response $response): ?bool
     {
-        return $response->status() !== 201;
+        return $response->status() !== 202;
     }
 }
-

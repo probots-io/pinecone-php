@@ -7,35 +7,30 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 /**
- * @link https://docs.pinecone.io/reference/describe_collection
+ * @link https://docs.pinecone.io/reference/delete_collection
  *
  * @param string $name
  *
  * @response
- * object
- * name | string
- * size | integer
- * status | string
+ * string ""
  *
  * @error_codes
  * 404 | Collection not found.
  * 500 | Internal error. Can be caused by invalid parameters.
  */
-class Describe extends Request
+class DeleteCollection extends Request
 {
     /**
      * @var Method
      */
-    protected Method $method = Method::GET;
+    protected Method $method = Method::DELETE;
 
     /**
      * @param string $name
      */
     public function __construct(
         protected string $name
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return string
@@ -51,6 +46,6 @@ class Describe extends Request
      */
     public function hasRequestFailed(Response $response): ?bool
     {
-        return $response->status() !== 200;
+        return $response->status() !== 202;
     }
 }

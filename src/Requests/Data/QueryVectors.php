@@ -40,7 +40,7 @@ use Saloon\Traits\Body\HasJsonBody;
  *   typeUrl | string
  *   value | string
  */
-class Query extends Request implements HasBody
+class QueryVectors extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -69,9 +69,7 @@ class Query extends Request implements HasBody
         protected bool    $includeMetadata = true,
         protected bool    $includeVector = false,
         protected ?string $id = null,
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return string
@@ -87,9 +85,9 @@ class Query extends Request implements HasBody
     protected function defaultBody(): array
     {
         $payload = [
-            'topK' => $this->topK,
+            'topK'            => $this->topK,
             'includeMetadata' => $this->includeMetadata,
-            'includeVector' => $this->includeVector,
+            'includeVector'   => $this->includeVector,
         ];
 
         if (count($this->vector) > 0) {

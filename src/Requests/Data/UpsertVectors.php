@@ -22,7 +22,7 @@ use Saloon\Traits\Body\HasJsonBody;
  *   typeUrl | string
  *   value | string
  */
-class Upsert extends Request implements HasBody
+class UpsertVectors extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -40,9 +40,7 @@ class Upsert extends Request implements HasBody
         protected array   $index,
         protected array   $vectors = [],
         protected ?string $namespace = null,
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return string

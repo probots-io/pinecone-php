@@ -12,7 +12,7 @@ use Saloon\Http\Request;
  * @response
  * array of strings "$collectionName"
  */
-class All extends Request
+class ListCollections extends Request
 {
     /**
      * @var Method
