@@ -1,6 +1,6 @@
 <?php
 
-namespace Probots\Pinecone\Exceptions;
+namespace Probots\Pinecone\Requests\Exceptions;
 
 use Saloon\Exceptions\SaloonException;
 

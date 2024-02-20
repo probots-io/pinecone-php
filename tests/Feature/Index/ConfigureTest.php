@@ -1,6 +1,6 @@
 <?php
 
-use Probots\Pinecone\Exceptions\MissingNameException;
+use Probots\Pinecone\Requests\Exceptions\MissingNameException;
 
 it('can do anything', function () {
 
