@@ -23,7 +23,7 @@ class Delete extends Request
     /**
      * @var Method
      */
-    protected Method $method = Method::DELETE;
+    protected Method $method = Method::POST;
 
     /**
      * @param string $name
