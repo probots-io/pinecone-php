@@ -3,8 +3,8 @@
 namespace Probots\Pinecone;
 
 use Probots\Pinecone\Contracts\ClientContract;
+use Probots\Pinecone\Requests\Data\FetchVectors;
 use Probots\Pinecone\Requests\Exceptions\MissingHostException;
-use Probots\Pinecone\Requests\Index\Vectors\FetchVectors;
 use Probots\Pinecone\Resources\ControlResource;
 use Probots\Pinecone\Resources\DataResource;
 use Psr\Http\Message\RequestInterface;

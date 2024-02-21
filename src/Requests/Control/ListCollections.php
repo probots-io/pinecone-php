@@ -1,6 +1,6 @@
 <?php
 
-namespace Probots\Pinecone\Requests\Collections;
+namespace Probots\Pinecone\Requests\Control;
 
 use Saloon\Enums\Method;
 use Saloon\Http\Request;

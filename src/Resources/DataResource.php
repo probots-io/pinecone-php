@@ -12,9 +12,9 @@ class DataResource extends Resource
         parent::__construct($connector);
     }
 
-    public function vectors(): VectorResource
+    public function vectors(): Data\VectorResource
     {
-        return new VectorResource($this->connector);
+        return new Data\VectorResource($this->connector);
     }
 
 }

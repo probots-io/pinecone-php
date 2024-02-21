@@ -1,9 +1,10 @@
 <?php
 
-namespace Probots\Pinecone\Resources;
+namespace Probots\Pinecone\Resources\Data;
 
 use Probots\Pinecone\Client;
-use Probots\Pinecone\Requests\Index\Vectors;
+use Probots\Pinecone\Requests\Data;
+use Probots\Pinecone\Resources\Resource;
 use Saloon\Http\Response;
 
 class VectorResource extends Resource
@@ -15,7 +16,7 @@ class VectorResource extends Resource
 
     public function stats(): Response
     {
-        return $this->connector->send(new Vectors\GetIndexStats());
+        return $this->connector->send(new Data\GetIndexStats());
     }
 
     public function update(string  $id,
@@ -24,13 +25,19 @@ class VectorResource extends Resource
                            array   $setMetadata = [],
                            ?string $namespace = null): Response
     {
-        return $this->connector->send(new Vectors\UpdateVector(id: $id, values: $values, sparseValues: $sparseValues, setMetadata: $setMetadata, namespace: $namespace));
+        return $this->connector->send(new Data\UpdateVector(
+            id: $id,
+            values: $values,
+            sparseValues: $sparseValues,
+            setMetadata: $setMetadata,
+            namespace: $namespace
+        ));
     }
 
 
     public function upsert(array $vectors, ?string $namespace = null): Response
     {
-        return $this->connector->send(new Vectors\UpsertVectors($vectors, $namespace));
+        return $this->connector->send(new Data\UpsertVectors($vectors, $namespace));
     }
 
     public function query(
@@ -43,7 +50,15 @@ class VectorResource extends Resource
         ?string $id = null
     ): Response
     {
-        return $this->connector->send(new Vectors\QueryVectors(vector: $vector, namespace: $namespace, filter: $filter, topK: $topK, includeMetadata: $includeMetadata, includeValues: $includeValues, id: $id));
+        return $this->connector->send(new Data\QueryVectors(
+            vector: $vector,
+            namespace: $namespace,
+            filter: $filter,
+            topK: $topK,
+            includeMetadata: $includeMetadata,
+            includeValues: $includeValues,
+            id: $id
+        ));
     }
 
     public function delete(
@@ -53,11 +68,19 @@ class VectorResource extends Resource
         array   $filter = []
     ): Response
     {
-        return $this->connector->send(new Vectors\DeleteVectors(ids: $ids, namespace: $namespace, deleteAll: $deleteAll, filter: $filter));
+        return $this->connector->send(new Data\DeleteVectors(
+            ids: $ids,
+            namespace: $namespace,
+            deleteAll: $deleteAll,
+            filter: $filter
+        ));
     }
 
     public function fetch(array $ids, ?string $namespace = null): Response
     {
-        return $this->connector->send(new Vectors\FetchVectors(ids: $ids, namespace: $namespace));
+        return $this->connector->send(new Data\FetchVectors(
+            ids: $ids,
+            namespace: $namespace
+        ));
     }
 }

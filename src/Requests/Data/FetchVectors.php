@@ -1,6 +1,6 @@
 <?php
 
-namespace Probots\Pinecone\Requests\Index\Vectors;
+namespace Probots\Pinecone\Requests\Data;
 
 use GuzzleHttp\Psr7\Query;
 use Saloon\Contracts\Body\HasBody;

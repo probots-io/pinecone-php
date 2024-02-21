@@ -1,6 +1,6 @@
 <?php
 
-namespace Probots\Pinecone\Requests\Index\Vectors;
+namespace Probots\Pinecone\Requests\Data;
 
 use Saloon\Enums\Method;
 use Saloon\Http\Request;

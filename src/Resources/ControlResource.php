@@ -11,14 +11,14 @@ class ControlResource extends Resource
         parent::__construct($connector);
     }
 
-    public function index(): IndexResource
+    public function index(?string $name = null): Control\IndexResource
     {
-        return new IndexResource($this->connector);
+        return new Control\IndexResource($this->connector, $name);
     }
 
-    public function collections(): CollectionResource
+    public function collection(?string $name = null): Control\CollectionResource
     {
-        return new CollectionResource($this->connector);
+        return new Control\CollectionResource($this->connector, $name);
     }
 
 

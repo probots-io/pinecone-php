@@ -1,7 +1,8 @@
 <?php
 
-namespace Probots\Pinecone\Requests\Index;
+namespace Probots\Pinecone\Requests\Control;
 
+use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
@@ -10,7 +11,7 @@ use Saloon\Traits\Body\HasJsonBody;
 /**
  * @link https://docs.pinecone.io/reference/create_index
  */
-class CreateIndex extends Request
+class CreateIndex extends Request implements HasBody
 {
     use HasJsonBody;
 
@@ -18,8 +19,8 @@ class CreateIndex extends Request
 
     protected string $mode = 'pod';
 
-    protected string $cloud;
-    private string $region;
+    protected ?string $cloud;
+    private ?string $region;
     protected ?string $environment;
     private ?int $replicas;
     private ?string $pod_type;
@@ -32,12 +33,12 @@ class CreateIndex extends Request
     public function __construct(
         protected string  $name,
         protected int     $dimension,
-        protected ?string $metric = 'cosine',
+        protected ?string $metric,
     ) {}
 
     public function serverless(
-        ?string $cloud = 'gcp',
-        ?string $region = 'us-west-2'
+        ?string $cloud,
+        ?string $region
     ): self
     {
 
@@ -50,13 +51,13 @@ class CreateIndex extends Request
     }
 
     public function pod(
-        ?string $environment = 'us-east1-gcp',
-        ?int    $replicas = 1,
-        ?string $pod_type = 'p1.x1',
-        ?int    $pods = 1,
-        ?int    $shards = 1,
-        ?array  $metadataConfig = null,
-        ?string $sourceCollection = null,
+        ?string $environment,
+        ?int    $replicas,
+        ?string $pod_type,
+        ?int    $pods,
+        ?int    $shards,
+        ?array  $metadataConfig,
+        ?string $sourceCollection,
     ): self
     {
         $this->mode = 'pod';
@@ -84,34 +85,41 @@ class CreateIndex extends Request
         $payload = [
             'name'      => $this->name,
             'dimension' => $this->dimension,
-            'metric'    => $this->metric,
-            'spec'      => [],
+            'metric'    => $this->metric ?? 'cosine',
         ];
 
+        $spec = [];
+
         if ($this->mode === 'serverless') {
-            $payload['spec'] = [
-                'cloud'  => $this->cloud,
-                'region' => $this->region,
+            $spec = [
+                'serverless' => [
+                    'cloud'  => $this->cloud ?? 'aws',
+                    'region' => $this->region ?? 'us-west-2',
+                ]
             ];
         }
 
         if ($this->mode === 'pod') {
-            $payload['spec'] = [
-                'environment' => $this->environment,
-                'replicas'    => $this->replicas,
-                'pod_type'    => $this->pod_type,
-                'pods'        => $this->pods,
-                'shards'      => $this->shards,
+            $spec = [
+                'pod' => [
+                    'environment' => $this->environment ?? 'us-east1-gcp',
+                    'replicas'    => $this->replicas ?? 1,
+                    'pod_type'    => $this->pod_type ?? 'p1.x1',
+                    'pods'        => $this->pods ?? 1,
+                    'shards'      => $this->shards ?? 1,
+                ]
             ];
 
             if ($this->metadataConfig !== null) {
-                $payload['spec']['metadata_config'] = $this->metadataConfig;
+                $spec['pod']['metadata_config'] = $this->metadataConfig;
             }
 
             if ($this->sourceCollection !== null) {
-                $payload['spec']['source_collection'] = $this->sourceCollection;
+                $spec['pod']['source_collection'] = $this->sourceCollection;
             }
         }
+
+        $payload['spec'] = $spec;
 
         return $payload;
     }

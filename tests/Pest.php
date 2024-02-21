@@ -28,9 +28,9 @@ if (!function_exists('dd')) {
     }
 }
 
-function getIndexName(): string
+function getIndexName(string $suffix = ''): string
 {
-    return $_ENV['PINECONE_INDEX_NAME'];
+    return $_ENV['PINECONE_INDEX_NAME'] . $suffix;
 }
 
 function getCollectionName(): string
@@ -53,7 +53,7 @@ function getClient(bool $mocked = false, string $fixtureSuffix = ''): Client
         },
     ]);
 
-    $client = new Probots\Pinecone\Client($_ENV['PINECONE_API_KEY'], $_ENV['PINECONE_ENVIRONMENT']);
+    $client = new Probots\Pinecone\Client($_ENV['PINECONE_API_KEY']);
 
     if ($mocked) {
         $client->withMockClient($mock);

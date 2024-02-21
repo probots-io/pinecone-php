@@ -1,0 +1,16 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "content-type": "application\/json",
+        "access-control-allow-origin": "*",
+        "vary": "origin,access-control-request-method,access-control-request-headers",
+        "access-control-expose-headers": "*",
+        "X-Cloud-Trace-Context": "a0b654de73c70263a886e66862c3753e",
+        "Date": "Wed, 21 Feb 2024 12:59:08 GMT",
+        "Server": "Google Frontend",
+        "Content-Length": "84",
+        "Via": "1.1 google",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    },
+    "data": "{\"name\":\"pinecone-collect-php\",\"status\":\"Initializing\",\"environment\":\"us-east1-gcp\"}"
+}

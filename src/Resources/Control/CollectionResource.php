@@ -1,42 +1,43 @@
 <?php
 
-namespace Probots\Pinecone\Resources;
+namespace Probots\Pinecone\Resources\Control;
 
 use Probots\Pinecone\Client;
-use Probots\Pinecone\Requests\Collections;
+use Probots\Pinecone\Requests\Control;
+use Probots\Pinecone\Resources\Resource;
 use Saloon\Http\Response;
 
 class CollectionResource extends Resource
 {
-    public function __construct(protected Client $connector)
+    public function __construct(protected Client $connector, protected ?string $name = null)
     {
         parent::__construct($connector);
     }
 
-    public function create(string $name, string $source): Response
+    public function create(string $source): Response
     {
-        return $this->connector->send(new Collections\CreateCollection(
-            name: $name,
+        return $this->connector->send(new Control\CreateCollection(
+            name: $this->name,
             source: $source
         ));
     }
 
-    public function describe(string $name): Response
+    public function describe(): Response
     {
-        return $this->connector->send(new Collections\DescribeCollection(
-            name: $name
+        return $this->connector->send(new Control\DescribeCollection(
+            name: $this->name
         ));
     }
 
     public function list(): Response
     {
-        return $this->connector->send(new Collections\ListCollections());
+        return $this->connector->send(new Control\ListCollections());
     }
 
-    public function delete(string $name): Response
+    public function delete(): Response
     {
-        return $this->connector->send(new Collections\DeleteCollection(
-            name: $name
+        return $this->connector->send(new Control\DeleteCollection(
+            name: $this->name
         ));
     }
 }
