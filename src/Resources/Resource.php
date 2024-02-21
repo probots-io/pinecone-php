@@ -2,14 +2,11 @@
 
 namespace Probots\Pinecone\Resources;
 
-use Saloon\Contracts\Connector;
+use Probots\Pinecone\Client;
 
 class Resource
 {
-    /**
-     * @param Connector $connector
-     */
-    public function __construct(protected Connector $connector)
+    public function __construct(protected Client $connector)
     {
         //
     }

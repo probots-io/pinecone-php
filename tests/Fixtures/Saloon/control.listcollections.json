@@ -1,0 +1,16 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "content-type": "application\/json",
+        "access-control-allow-origin": "*",
+        "vary": "origin,access-control-request-method,access-control-request-headers",
+        "access-control-expose-headers": "*",
+        "X-Cloud-Trace-Context": "a7ab6825d3b7fc59e64ce530a21a9099",
+        "Date": "Wed, 21 Feb 2024 12:59:47 GMT",
+        "Server": "Google Frontend",
+        "Content-Length": "126",
+        "Via": "1.1 google",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    },
+    "data": "{\"collections\":[{\"name\":\"pinecone-collect-php\",\"size\":3100581,\"status\":\"Ready\",\"dimension\":128,\"environment\":\"us-east1-gcp\"}]}"
+}

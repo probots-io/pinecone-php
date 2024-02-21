@@ -10,9 +10,9 @@ final class Factory
     private ?string $apiKey = null;
 
     /**
-     * The environment for the requests.
+     * The host for the Data requests.
      */
-    private ?string $environment = null;
+    private ?string $host = null;
 
 
     /**
@@ -26,11 +26,11 @@ final class Factory
     }
 
     /**
-     * Sets environment for the requests.
+     * Sets the index host for Data Operations
      */
-    public function withEnvironment(?string $environment): self
+    public function withHost(?string $host): self
     {
-        $this->environment = $environment;
+        $this->host = $host;
 
         return $this;
     }
@@ -41,7 +41,7 @@ final class Factory
      */
     public function make(): Client
     {
-        return new Client($this->apiKey, $this->environment);
+        return new Client($this->apiKey, $this->host);
     }
 
 }

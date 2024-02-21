@@ -1,11 +1,10 @@
 # Pinecone PHP
 
 A beautiful, extendable PHP Package to communicate with your [pinecone.io](https://pinecone.io) indices, collections and
-vectors, powered by [Saloon](https://github.com/sammyjo20/saloon).
+vectors, powered by [Saloon](https://github.com/saloonphp/saloon).
 
 > **Info**
-> This package is still in active development, but is already used in some production scenarios.
-> Check Todo list below for more information what's missing.
+> This package is not yet usable. Working on Upgrading to the latest Pinecone API.
 
 [![probots.io](art/probots-banner-1000x400.png)](https://probots.io)
 
