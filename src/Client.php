@@ -27,8 +27,6 @@ class Client extends Connector implements ClientContract
     ) {}
 
     // (Temporary) Workaround for https://github.com/probots-io/pinecone-php/issues/3
-
-    /* @phpstan-ignore-next-line */
     public function handlePsrRequest(RequestInterface $request, PendingRequest $pendingRequest): RequestInterface
     {
         return FetchVectors::queryIdsWorkaround($request);
