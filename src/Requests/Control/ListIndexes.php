@@ -17,7 +17,6 @@ class ListIndexes extends Request
 
     protected Method $method = Method::GET;
 
-
     public function resolveEndpoint(): string
     {
         return '/indexes';

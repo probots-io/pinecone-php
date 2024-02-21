@@ -14,23 +14,13 @@ use Saloon\Http\Response;
  */
 class ListCollections extends Request
 {
-    /**
-     * @var Method
-     */
     protected Method $method = Method::GET;
 
-    /**
-     * @return string
-     */
     public function resolveEndpoint(): string
     {
         return '/collections';
     }
 
-    /**
-     * @param Response $response
-     * @return bool|null
-     */
     public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 200;

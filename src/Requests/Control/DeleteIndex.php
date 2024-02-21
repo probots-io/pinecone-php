@@ -20,30 +20,17 @@ use Saloon\Http\Response;
  */
 class DeleteIndex extends Request
 {
-    /**
-     * @var Method
-     */
     protected Method $method = Method::DELETE;
 
-    /**
-     * @param string $name
-     */
     public function __construct(
         protected string $name,
     ) {}
 
-    /**
-     * @return string
-     */
     public function resolveEndpoint(): string
     {
         return '/indexes/' . $this->name;
     }
 
-    /**
-     * @param Response $response
-     * @return bool|null
-     */
     public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 202;

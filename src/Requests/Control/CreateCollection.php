@@ -30,26 +30,17 @@ class CreateCollection extends Request
      */
     protected Method $method = Method::POST;
 
-    /**
-     * @param string $name
-     * @param string $source
-     */
+
     public function __construct(
         protected string $name,
         protected string $source,
     ) {}
 
-    /**
-     * @return string
-     */
     public function resolveEndpoint(): string
     {
         return '/collections';
     }
 
-    /**
-     * @return array
-     */
     protected function defaultBody(): array
     {
         return [
@@ -58,10 +49,6 @@ class CreateCollection extends Request
         ];
     }
 
-    /**
-     * @param Response $response
-     * @return bool|null
-     */
     public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 201;

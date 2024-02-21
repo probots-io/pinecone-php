@@ -26,33 +26,21 @@ class ConfigureIndex extends Request
 {
     use HasJsonBody;
 
-    /**
-     * @var Method
-     */
     protected Method $method = Method::PATCH;
 
-    /**
-     * @param string $name
-     * @param int $replicas
-     * @param string $pod_type
-     */
+
     public function __construct(
         protected string $name,
         protected int    $replicas,
         protected string $pod_type
     ) {}
 
-    /**
-     * @return string
-     */
+
     public function resolveEndpoint(): string
     {
         return '/indexes/' . $this->name;
     }
 
-    /**
-     * @return array
-     */
     protected function defaultBody(): array
     {
         return [
@@ -65,10 +53,6 @@ class ConfigureIndex extends Request
         ];
     }
 
-    /**
-     * @param Response $response
-     * @return bool|null
-     */
     public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 202;

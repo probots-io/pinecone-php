@@ -23,30 +23,20 @@ use Saloon\Http\Response;
  */
 class DescribeCollection extends Request
 {
-    /**
-     * @var Method
-     */
+
     protected Method $method = Method::GET;
 
-    /**
-     * @param string $name
-     */
+
     public function __construct(
         protected string $name
     ) {}
 
-    /**
-     * @return string
-     */
+
     public function resolveEndpoint(): string
     {
         return '/collections/' . $this->name;
     }
 
-    /**
-     * @param Response $response
-     * @return bool|null
-     */
     public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 200;
