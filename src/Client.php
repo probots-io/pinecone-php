@@ -3,11 +3,13 @@
 namespace Probots\Pinecone;
 
 use Probots\Pinecone\Contracts\ClientContract;
-use Probots\Pinecone\Requests\Index\Vectors\Fetch;
-use Probots\Pinecone\Resources\CollectionResource;
-use Probots\Pinecone\Resources\IndexResource;
+use Probots\Pinecone\Requests\Data\FetchVectors;
+use Probots\Pinecone\Requests\Exceptions\MissingHostException;
+use Probots\Pinecone\Resources\ControlResource;
+use Probots\Pinecone\Resources\DataResource;
 use Psr\Http\Message\RequestInterface;
 use Saloon\Http\Connector;
+use Saloon\Http\PendingRequest;
 use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 
@@ -17,52 +19,51 @@ class Client extends Connector implements ClientContract
 
     protected ?string $response = Response::class;
 
-    /**
-     * @param string $apiKey
-     * @param string $environment
-     */
+    protected string $baseUrl = 'https://api.pinecone.io';
+
     public function __construct(
-        public string $apiKey,
-        public string $environment,
-    )
+        public string  $apiKey,
+        public ?string $indexHost = null,
+    ) {}
+
+    // (Temporary) Workaround for https://github.com/probots-io/pinecone-php/issues/3
+    public function handlePsrRequest(RequestInterface $request, PendingRequest $pendingRequest): RequestInterface
     {
-        // (Temporary) Workaround for https://github.com/probots-io/pinecone-php/issues/3
-        $this->sender()->addMiddleware(function (callable $handler) {
-            return function (RequestInterface $request, array $options) use ($handler) {
-                return $handler(Fetch::queryIdsWorkaround($request), $options);
-            };
-        });
+        return FetchVectors::queryIdsWorkaround($request);
     }
 
-    /**
-     * @return string
-     */
     public function resolveBaseUrl(): string
     {
-        return 'https://controller.' . $this->environment . '.pinecone.io';
+        return $this->baseUrl;
     }
 
-    /**
-     * @param string|null $name
-     * @return IndexResource
-     */
-    public function index(?string $name = null): IndexResource
+    public function control(): ControlResource
     {
-        return new IndexResource($this, $name);
+        return new ControlResource($this);
     }
 
     /**
-     * @param string|null $name
-     * @return CollectionResource
+     * @throws MissingHostException
      */
-    public function collections(?string $name = null): CollectionResource
+    public function data(): DataResource
     {
-        return new CollectionResource($this, $name);
+        $this->baseUrl = $this->indexHost;
+
+        if (!$this->indexHost) {
+            throw new MissingHostException('Index host is missing');
+        }
+
+        return new DataResource($this);
     }
 
-    /**
-     * @return array
-     */
+    public function setIndexHost(string $indexHost): self
+    {
+        $this->indexHost = $indexHost;
+
+        return $this;
+    }
+
+
     protected function defaultHeaders(): array
     {
         return [

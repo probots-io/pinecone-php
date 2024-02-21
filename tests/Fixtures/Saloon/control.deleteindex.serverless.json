@@ -1,0 +1,16 @@
+{
+    "statusCode": 202,
+    "headers": {
+        "access-control-allow-origin": "*",
+        "vary": "origin,access-control-request-method,access-control-request-headers",
+        "access-control-expose-headers": "*",
+        "X-Cloud-Trace-Context": "ec9168a56b44d9697d318974f1c9cd55",
+        "Date": "Wed, 21 Feb 2024 12:36:36 GMT",
+        "Content-Type": "text\/html",
+        "Server": "Google Frontend",
+        "Content-Length": "0",
+        "Via": "1.1 google",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    },
+    "data": ""
+}

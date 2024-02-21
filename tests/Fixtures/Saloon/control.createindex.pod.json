@@ -1,0 +1,16 @@
+{
+    "statusCode": 201,
+    "headers": {
+        "content-type": "application\/json",
+        "access-control-allow-origin": "*",
+        "vary": "origin,access-control-request-method,access-control-request-headers",
+        "access-control-expose-headers": "*",
+        "X-Cloud-Trace-Context": "768db942908eaade97b7eb711db2f47e",
+        "Date": "Wed, 21 Feb 2024 12:41:09 GMT",
+        "Server": "Google Frontend",
+        "Content-Length": "280",
+        "Via": "1.1 google",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    },
+    "data": "{\"name\":\"pinecone-test-php-pod\",\"metric\":\"cosine\",\"dimension\":128,\"status\":{\"ready\":false,\"state\":\"Initializing\"},\"host\":\"pinecone-test-php-pod-1eyib7n.svc.us-east1-gcp.pinecone.io\",\"spec\":{\"pod\":{\"replicas\":1,\"shards\":1,\"pods\":1,\"pod_type\":\"p1.x1\",\"environment\":\"us-east1-gcp\"}}}"
+}

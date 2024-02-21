@@ -1,0 +1,16 @@
+{
+    "statusCode": 201,
+    "headers": {
+        "content-type": "application\/json",
+        "access-control-allow-origin": "*",
+        "vary": "origin,access-control-request-method,access-control-request-headers",
+        "access-control-expose-headers": "*",
+        "X-Cloud-Trace-Context": "3a12fd99438e751d384b3ba3ece5e8d7",
+        "Date": "Wed, 21 Feb 2024 12:36:34 GMT",
+        "Server": "Google Frontend",
+        "Content-Length": "257",
+        "Via": "1.1 google",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    },
+    "data": "{\"name\":\"pinecone-test-php-serverless\",\"metric\":\"cosine\",\"dimension\":128,\"status\":{\"ready\":false,\"state\":\"Initializing\"},\"host\":\"pinecone-test-php-serverless-1eyib7n.svc.apw5-4e34-81fa.pinecone.io\",\"spec\":{\"serverless\":{\"region\":\"us-west-2\",\"cloud\":\"aws\"}}}"
+}

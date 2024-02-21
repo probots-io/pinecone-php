@@ -1,11 +1,12 @@
 # Pinecone PHP
 
 A beautiful, extendable PHP Package to communicate with your [pinecone.io](https://pinecone.io) indices, collections and
-vectors, powered by [Saloon](https://github.com/sammyjo20/saloon).
+vectors, powered by [Saloon](https://github.com/saloonphp/saloon).
 
 > **Info**
-> This package is still in active development, but is already used in some production scenarios.
-> Check Todo list below for more information what's missing.
+> From Version 1.x onwards we are using the latest Pinecone API which support serverless. If you need the legacy API
+> please use a version before
+> 1.0.0!
 
 [![probots.io](art/probots-banner-1000x400.png)](https://probots.io)
 
@@ -33,14 +34,47 @@ First, you will need to create an Api Key in your [pinecone.io](https://pinecone
 ```php
 use \Probots\Pinecone\Client as Pinecone;
 
-
 $apiKey = 'YOUR_PINECONE_API_KEY';
-$environment = 'YOU_PINECONE_ENVIRONMENT';
 
 // Initialize Pinecone
-$pinecone = new Pinecone($apiKey, $environment);
+$pinecone = new Pinecone($apiKey);
 
 // Now you are ready to make requests, all requests will be authenticated automatically.
+```
+
+## Quick Start
+
+There are two ways to initialize the SDK. You can either provide an index during initialization or you can provide it
+later on.
+
+```php
+use \Probots\Pinecone\Client as Pinecone;
+
+$apiKey = 'YOUR_PINECONE_API_KEY';
+$pinecone = new Pinecone($apiKey);
+
+// all control methods are available now, create an index or similar
+// e.g. $pinecone->control()->index()
+
+// later on you can provide the index
+$pinecone->setIndexHost('INDEX_HOST_FROM_PINECONE');
+
+// data methods are available now
+
+// e.g. $pinecone->data()->vectors()
+```
+
+or
+
+```php
+use \Probots\Pinecone\Client as Pinecone;
+
+$apiKey = 'YOUR_PINECONE_API_KEY';
+$indexHost = 'INDEX_HOST_FROM_PINECONE';
+
+$pinecone = new Pinecone($apiKey, $indexHost);
+
+// all control AND data methods are available now
 ```
 
 ## Responses
@@ -49,18 +83,41 @@ All responses are returned as a `Response` object.
 Please check the [Saloon documentation](https://docs.saloon.dev/the-basics/responses#available-methods) to see all
 available methods.
 
+# Control Pane
+
 ## Index Operations
 
 Work(s) with your indices.
 
-### Create Index
+### Create Index (POD)
 
 [Pinecone Docs](https://docs.pinecone.io/reference/create_index)
 
 ```php
-$response = $pinecone->index()->create(
-    name: 'my-index',
-    dimension: 1536
+$response = $pinecone->control()->index('my-index')->createPod(
+    dimension: 1536,
+    metric: 'cosine',
+    podType: 'p1.x1',
+    replicas: 1
+    // ... more options    
+);
+
+if($response->successful()) {
+    // 
+}
+```
+
+### Create Index (Serverless)
+
+[Pinecone Docs](https://docs.pinecone.io/reference/create_index)
+
+```php
+$response = $pinecone->control()->index('my-index')->createServerless(
+    dimension: 1536,
+    metric: 'cosine',
+    cloud: 'aws',
+    region: 'us-west-2'
+    // ... more options    
 );
 
 if($response->successful()) {
@@ -73,7 +130,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/describe_index)
 
 ```php
-$response = $pinecone->index('my-index')->describe();
+$response = $pinecone->control()->index('my-index')->describe();
 
 if($response->successful()) {
     // 
@@ -85,7 +142,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/list_indexes)
 
 ```php
-$response = $pinecone->index()->list();
+$response = $pinecone->control()->index()->list();
 
 if($response->successful()) {
     // 
@@ -97,7 +154,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/configure_index)
 
 ```php
-$response = $pinecone->index('my-index')->configure(
+$response = $pinecone->control()->index('my-index')->configure(
     pod_type: 'p1.x1',
     replicas: 1
 );
@@ -112,7 +169,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/delete_index)
 
 ```php
-$response = $pinecone->index('my-index')->delete();
+$response = $pinecone->control()->index('my-index')->delete();
 
 if($response->successful()) {
     // 
@@ -128,8 +185,7 @@ Work(s) with your collections too.
 [Pinecone Docs](https://docs.pinecone.io/reference/create_collection)
 
 ```php
-$response = $pinecone->collections()->create(
-    name: 'my-collection',
+$response = $pinecone->control()->collections('my-collection')->create(
     source: 'my-index'
 );
 
@@ -143,7 +199,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/describe_collection)
 
 ```php
-$response = $pinecone->collections('my-collection')->describe();
+$response = $pinecone->control()->collections('my-collection')->describe();
 
 if($response->successful()) {
     // 
@@ -155,7 +211,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/list_collections)
 
 ```php
-$response = $pinecone->collections()->list();
+$response = $pinecone->control()->collections()->list();
 
 if($response->successful()) {
     // 
@@ -167,23 +223,29 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/delete_collection)
 
 ```php
-$response = $pinecone->collections('my-collection')->delete();
+$response = $pinecone->control()->collections('my-collection')->delete();
 
 if($response->successful()) {
     // 
 }
 ```
 
+# Data Pane
+
+> **Info**
+> These operations need the index to be set. You can set the index during initialization or later on.
+> See description at the beginning.
+
 ## Vector Operations
 
 Vectors are the basic unit of data in Pinecone. Use them.
 
-### Describe Index Stats
+### Get Index Stats
 
-TBD
+[Pinecone Docs](https://docs.pinecone.io/reference/describe_index_stats)
 
 ```php
-$response = $pinecone->index('my-index')->vectors()->stats();
+$response = $pinecone->data()->vectors()->stats();
 
 if($response->successful()) {
     // 
@@ -195,7 +257,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/update)
 
 ```php
-$response = $pinecone->index('my-index')->vectors()->update(
+$response = $pinecone->data()->vectors()->update(
     id: 'vector_1',
     values: array_fill(0, 128, 0.14),
     setMetadata: [
@@ -213,7 +275,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/upsert)
 
 ```php
-$response = $pinecone->index('my-index')->vectors()->upsert(vectors: [
+$response = $pinecone->data()->vectors()->upsert(vectors: [
     'id' => 'vector_1',
     'values' => array_fill(0, 128, 0.14),
     'metadata' => [
@@ -231,7 +293,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/query)
 
 ```php
-$response = $pinecone->index('my-index')->vectors()->query(
+$response = $pinecone->data()->vectors()->query(
     vector: array_fill(0, 128, 0.12),
     topK: 1,
 );
@@ -246,7 +308,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/delete_post)
 
 ```php
-$response = $pinecone->index('my-index')->vectors()->delete(
+$response = $pinecone->data()->vectors()->delete(
     deleteAll: true
 );
 
@@ -260,7 +322,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/fetch)
 
 ```php
-$response = $pinecone->index('my-index')->vectors()->fetch([
+$response = $pinecone->data()->vectors()->fetch([
     'vector_1', 'vector_2'
 ]);
 
@@ -283,7 +345,7 @@ Copy .env.example to .env and update accordingly.
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-## TODO:
+## TODO - Submit PR if you want to contribute:
 
 - [ ] validate parameters based on API docs - needs more checking
 - [ ] Implement Custom Exceptions
