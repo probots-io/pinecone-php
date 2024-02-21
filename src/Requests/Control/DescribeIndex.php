@@ -52,7 +52,7 @@ class DescribeIndex extends Request
      */
     public function resolveEndpoint(): string
     {
-        return '/databases/' . $this->name;
+        return '/indexes/' . $this->name;
     }
 
     /**

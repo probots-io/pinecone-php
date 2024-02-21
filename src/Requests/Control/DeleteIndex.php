@@ -23,7 +23,7 @@ class DeleteIndex extends Request
     /**
      * @var Method
      */
-    protected Method $method = Method::POST;
+    protected Method $method = Method::DELETE;
 
     /**
      * @param string $name
@@ -37,7 +37,7 @@ class DeleteIndex extends Request
      */
     public function resolveEndpoint(): string
     {
-        return '/databases/' . $this->name;
+        return '/indexes/' . $this->name;
     }
 
     /**

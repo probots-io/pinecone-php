@@ -14,23 +14,15 @@ use Saloon\Http\Response;
  */
 class ListIndexes extends Request
 {
-    /**
-     * @var Method
-     */
+
     protected Method $method = Method::GET;
 
-    /**
-     * @return string
-     */
+
     public function resolveEndpoint(): string
     {
-        return '/databases';
+        return '/indexes';
     }
 
-    /**
-     * @param Response $response
-     * @return bool|null
-     */
     public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 200;

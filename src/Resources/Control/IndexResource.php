@@ -15,10 +15,9 @@ class IndexResource extends Resource
         parent::__construct($connector);
     }
 
-
-    public function describe(): Response
+    public function list(): Response
     {
-        return $this->connector->send(new Index\DescribeIndex());
+        return $this->connector->send(new Index\ListIndexes());
     }
 
     public function createPod(
@@ -74,18 +73,26 @@ class IndexResource extends Resource
 
     }
 
-    public function list(): Response
+
+    public function describe(string $name): Response
     {
-        return $this->connector->send(new Index\ListIndexes());
+        return $this->connector->send(new Index\DescribeIndex(
+            name: $name
+        ));
     }
 
-    public function configure(string $pod_type, int $replicas): Response
+    public function configure(string $name, string $pod_type, int $replicas): Response
     {
-        return $this->connector->send(new Index\ConfigureIndex($replicas, $pod_type));
+        return $this->connector->send(new Index\ConfigureIndex(
+            name: $name,
+            replicas: $replicas,
+            pod_type: $pod_type));
     }
 
-    public function delete(): Response
+    public function delete(string $name): Response
     {
-        return $this->connector->send(new Index\DeleteIndex());
+        return $this->connector->send(new Index\DeleteIndex(
+            name: $name
+        ));
     }
 }

@@ -47,7 +47,7 @@ class ConfigureIndex extends Request
      */
     public function resolveEndpoint(): string
     {
-        return '/databases/' . $this->name;
+        return '/indexes/' . $this->name;
     }
 
     /**
@@ -56,8 +56,12 @@ class ConfigureIndex extends Request
     protected function defaultBody(): array
     {
         return [
-            'replicas' => $this->replicas,
-            'pod_type' => $this->pod_type,
+            'spec' => [
+                'pod' => [
+                    'replicas' => $this->replicas,
+                    'pod_type' => $this->pod_type,
+                ],
+            ]
         ];
     }
 
