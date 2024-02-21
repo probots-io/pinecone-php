@@ -1,0 +1,12 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "content-type": "application\/json",
+        "date": "Wed, 21 Feb 2024 13:29:29 GMT",
+        "x-envoy-upstream-service-time": "49",
+        "grpc-status": "0",
+        "content-length": "2",
+        "server": "envoy"
+    },
+    "data": "{}"
+}

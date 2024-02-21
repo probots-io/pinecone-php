@@ -16,6 +16,7 @@ use Probots\Pinecone\Client;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Http\PendingRequest;
+use Saloon\Http\Response;
 
 uses(Tests\TestCase::class)->in('Feature');
 
@@ -38,6 +39,20 @@ function getCollectionName(): string
     return $_ENV['PINECONE_COLLECTION_NAME'];
 }
 
+function describeIndex($client, $indexName): Response
+{
+    return $client->control()->index($indexName)->describe();
+}
+
+
+function setIndexHost($client, $indexName): void
+{
+    $indexData = describeIndex($client, $indexName);
+    $host = $indexData->json('host');
+
+    $client->setIndexHost('https://' . $host);
+}
+
 function getClient(bool $mocked = false, string $fixtureSuffix = ''): Client
 {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
@@ -53,7 +68,7 @@ function getClient(bool $mocked = false, string $fixtureSuffix = ''): Client
         },
     ]);
 
-    $client = new Probots\Pinecone\Client($_ENV['PINECONE_API_KEY']);
+    $client = new Probots\Pinecone\Client($_ENV['PINECONE_API_KEY'], $_ENV['PINECONE_INDEX_HOST']);
 
     if ($mocked) {
         $client->withMockClient($mock);

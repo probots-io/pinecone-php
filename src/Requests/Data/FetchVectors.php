@@ -3,19 +3,17 @@
 namespace Probots\Pinecone\Requests\Data;
 
 use GuzzleHttp\Psr7\Query;
-use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
-use Saloon\Traits\Body\HasJsonBody;
 use Saloon\Traits\RequestProperties\HasQuery;
 
 /**
  * @link https://docs.pinecone.io/reference/fetch
  */
-class FetchVectors extends Request implements HasBody
+class FetchVectors extends Request
 {
-    use HasJsonBody, HasQuery;
+    use HasQuery;
 
     protected Method $method = Method::GET;
 
@@ -35,6 +33,7 @@ class FetchVectors extends Request implements HasBody
         if ($requestUri->getPath() === '/vectors/fetch') {
             $queryString = $requestUri->getQuery();
             parse_str(urldecode($queryString), $data);
+
             return $request->withUri($requestUri->withQuery(Query::build($data)));
         }
 

@@ -3,9 +3,12 @@
 it('can update vectors', function () {
 
     $client = getClient(true);
-    $index = $client->index(getIndexName());
+    $index = getIndexName('-pod');
 
-    $response = $index->vectors()->update(
+    // This is not good. Since the test relies on Pinecone having the needed index.
+    setIndexHost($client, $index);
+
+    $response = $client->data()->vectors()->update(
         id: 'vector_1',
         values: array_fill(0, 128, 0.14),
         setMetadata: [

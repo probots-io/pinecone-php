@@ -9,6 +9,7 @@ use Probots\Pinecone\Resources\ControlResource;
 use Probots\Pinecone\Resources\DataResource;
 use Psr\Http\Message\RequestInterface;
 use Saloon\Http\Connector;
+use Saloon\Http\PendingRequest;
 use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 
@@ -23,15 +24,14 @@ class Client extends Connector implements ClientContract
     public function __construct(
         public string  $apiKey,
         public ?string $indexHost = null,
-    )
+    ) {}
+
+    // (Temporary) Workaround for https://github.com/probots-io/pinecone-php/issues/3
+
+    /* @phpstan-ignore-next-line */
+    public function handlePsrRequest(RequestInterface $request, PendingRequest $pendingRequest): RequestInterface
     {
-        // (Temporary) Workaround for https://github.com/probots-io/pinecone-php/issues/3
-        /* @phpstan-ignore-next-line */
-        $this->sender()->addMiddleware(function (callable $handler) {
-            return function (RequestInterface $request, array $options) use ($handler) {
-                return $handler(FetchVectors::queryIdsWorkaround($request), $options);
-            };
-        });
+        return FetchVectors::queryIdsWorkaround($request);
     }
 
     public function resolveBaseUrl(): string
@@ -56,6 +56,13 @@ class Client extends Connector implements ClientContract
         }
 
         return new DataResource($this);
+    }
+
+    public function setIndexHost(string $indexHost): self
+    {
+        $this->indexHost = $indexHost;
+
+        return $this;
     }
 
 
