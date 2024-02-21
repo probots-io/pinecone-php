@@ -8,11 +8,11 @@ final class Pinecone
     /**
      * Creates a new Open AI Client with the given API token.
      */
-    public static function client(string $apiKey, string $environment = null): Client
+    public static function client(string $apiKey, string $indexHost = null): Client
     {
         return self::factory()
             ->withApiKey($apiKey)
-            ->withEnvironment($environment)
+            ->withHost($indexHost)
             ->make();
     }
 

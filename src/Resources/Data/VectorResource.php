@@ -6,67 +6,33 @@ use Probots\Pinecone\Requests\Index\Vectors;
 use Saloon\Contracts\Connector;
 use Saloon\Contracts\Response;
 
-/**
- *
- */
 class VectorResource extends Resource
 {
-    /**
-     * @param Connector $connector
-     * @param array $index
-     */
-    public function __construct(protected Connector $connector, protected array $index)
+    public function __construct(protected Connector $connector)
     {
         parent::__construct($connector);
     }
 
-    /**
-     * @return Response
-     */
     public function stats(): Response
     {
         return $this->connector->send(new Vectors\DescribeIndexStats($this->index));
     }
 
-    /**
-     * @param string $id
-     * @param array $values
-     * @param array $sparseValues
-     * @param array $setMetadata
-     * @param string|null $namespace
-     * @return Response
-     */
     public function update(string  $id,
                            array   $values = [],
                            array   $sparseValues = [],
                            array   $setMetadata = [],
                            ?string $namespace = null): Response
     {
-
-
         return $this->connector->send(new Vectors\UpdateVector($this->index, id: $id, values: $values, sparseValues: $sparseValues, setMetadata: $setMetadata, namespace: $namespace));
     }
 
-    /**
-     * @param array $vectors
-     * @param string|null $namespace
-     * @return Response
-     */
+
     public function upsert(array $vectors, ?string $namespace = null): Response
     {
         return $this->connector->send(new Vectors\UpsertVectors($this->index, $vectors, $namespace));
     }
 
-    /**
-     * @param array $vector
-     * @param string|null $namespace
-     * @param array $filter
-     * @param int $topK
-     * @param bool $includeMetadata
-     * @param bool $includeVector
-     * @param string|null $id
-     * @return Response
-     */
     public function query(
         array   $vector = [],
         ?string $namespace = null,
@@ -80,13 +46,6 @@ class VectorResource extends Resource
         return $this->connector->send(new Vectors\QueryVectors($this->index, vector: $vector, namespace: $namespace, filter: $filter, topK: $topK, includeMetadata: $includeMetadata, includeVector: $includeVector, id: $id));
     }
 
-    /**
-     * @param array $ids
-     * @param string|null $namespace
-     * @param bool $deleteAll
-     * @param array $filter
-     * @return Response
-     */
     public function delete(
         array   $ids = [],
         ?string $namespace = null,
@@ -97,11 +56,6 @@ class VectorResource extends Resource
         return $this->connector->send(new Vectors\DeleteVectors($this->index, ids: $ids, namespace: $namespace, deleteAll: $deleteAll, filter: $filter));
     }
 
-    /**
-     * @param array $ids
-     * @param string|null $namespace
-     * @return Response
-     */
     public function fetch(array $ids, ?string $namespace = null): Response
     {
         return $this->connector->send(new Vectors\FetchVectors($this->index, ids: $ids, namespace: $namespace));

@@ -2,9 +2,9 @@
 
 namespace Probots\Pinecone\Requests\Index;
 
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * @link https://docs.pinecone.io/reference/delete_index

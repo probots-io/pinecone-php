@@ -2,10 +2,9 @@
 
 namespace Probots\Pinecone\Requests\Collections;
 
-use Saloon\Contracts\Body\HasBody;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
@@ -22,7 +21,7 @@ use Saloon\Traits\Body\HasJsonBody;
  * 409 | A collection with the name provided already exists.
  * 500 | Internal error. Can be caused by invalid parameters.
  */
-class CreateCollection extends Request implements HasBody
+class CreateCollection extends Request
 {
     use HasJsonBody;
 

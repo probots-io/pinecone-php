@@ -2,10 +2,9 @@
 
 namespace Probots\Pinecone\Requests\Index;
 
-use Saloon\Contracts\Body\HasBody;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
@@ -23,7 +22,7 @@ use Saloon\Traits\Body\HasJsonBody;
  * 404 | Index not found.
  * 500 | Internal error. Can be caused by invalid parameters.
  */
-class ConfigureIndex extends Request implements HasBody
+class ConfigureIndex extends Request
 {
     use HasJsonBody;
 
