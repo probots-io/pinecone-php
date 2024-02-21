@@ -8,15 +8,6 @@ use Saloon\Http\Response;
 
 /**
  * @link https://docs.pinecone.io/reference/delete_collection
- *
- * @param string $name
- *
- * @response
- * string ""
- *
- * @error_codes
- * 404 | Collection not found.
- * 500 | Internal error. Can be caused by invalid parameters.
  */
 class DeleteCollection extends Request
 {

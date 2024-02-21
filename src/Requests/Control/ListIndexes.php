@@ -8,9 +8,6 @@ use Saloon\Http\Response;
 
 /**
  * @link https://docs.pinecone.io/reference/list_indexes
- *
- * @response
- * array of strings "$indexName"
  */
 class ListIndexes extends Request
 {

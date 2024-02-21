@@ -9,18 +9,6 @@ use Saloon\Traits\Body\HasJsonBody;
 
 /**
  * @link https://docs.pinecone.io/reference/configure_index
- *
- * @param string $name
- * @param int $replicas
- * @param string $pod_type
- *
- * @response
- * string ""
- *
- * @error_codes
- * 400 | Bad request,not enough quota.
- * 404 | Index not found.
- * 500 | Internal error. Can be caused by invalid parameters.
  */
 class ConfigureIndex extends Request
 {

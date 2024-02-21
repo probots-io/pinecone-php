@@ -26,6 +26,7 @@ class Client extends Connector implements ClientContract
     )
     {
         // (Temporary) Workaround for https://github.com/probots-io/pinecone-php/issues/3
+        /* @phpstan-ignore-next-line */
         $this->sender()->addMiddleware(function (callable $handler) {
             return function (RequestInterface $request, array $options) use ($handler) {
                 return $handler(FetchVectors::queryIdsWorkaround($request), $options);

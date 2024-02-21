@@ -2,15 +2,15 @@
 
 namespace Probots\Pinecone\Resources;
 
+use Probots\Pinecone\Client;
 use Probots\Pinecone\Requests\Index;
-use Saloon\Contracts\Connector;
-use Saloon\Contracts\Response;
+use Saloon\Http\Response;
 
 class IndexResource extends Resource
 {
     protected ?array $index = null;
 
-    public function __construct(protected Connector $connector)
+    public function __construct(protected Client $connector)
     {
         parent::__construct($connector);
     }

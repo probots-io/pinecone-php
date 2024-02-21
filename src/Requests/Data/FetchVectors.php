@@ -4,54 +4,27 @@ namespace Probots\Pinecone\Requests\Index\Vectors;
 
 use GuzzleHttp\Psr7\Query;
 use Saloon\Contracts\Body\HasBody;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 use Saloon\Traits\RequestProperties\HasQuery;
 
 /**
  * @link https://docs.pinecone.io/reference/fetch
- *
- * @param array $index
- * @param array $ids
- * @param string|null $namespace
- *
- * @response
- *
- *
- * @error_response
- * object
- * code | integer
- * message | string
- * details | array of objects
- *   typeUrl | string
- *   value | string
  */
 class FetchVectors extends Request implements HasBody
 {
     use HasJsonBody, HasQuery;
 
-    /**
-     * @var Method
-     */
     protected Method $method = Method::GET;
 
-    /**
-     * @param array $index
-     * @param array $ids
-     * @param string|null $namespace
-     */
     public function __construct(
-        protected array   $index,
         protected array   $ids,
         protected ?string $namespace = null,
     ) {}
 
     /**
-     * @param $request
-     * @return \GuzzleHttp\Psr7\Request
-     *
      * This is a workaround for https://github.com/probots-io/pinecone-php/issues/3
      * It remaps ids[]=1&ids[]=2 to ids=1&ids=2
      */
@@ -68,9 +41,6 @@ class FetchVectors extends Request implements HasBody
         return $request;
     }
 
-    /**
-     * @return array|mixed[]
-     */
     protected function defaultQuery(): array
     {
 //        $payload = [
@@ -85,23 +55,14 @@ class FetchVectors extends Request implements HasBody
             $payload['namespace'] = $this->namespace;
         }
 
-//        dd(\GuzzleHttp\Psr7\Query::build(["ids" => $this->ids]));
-
         return $payload;
     }
 
-    /**
-     * @return string
-     */
     public function resolveEndpoint(): string
     {
-        return 'https://' . $this->index['status']['host'] . '/vectors/fetch';
+        return '/vectors/fetch';
     }
 
-    /**
-     * @param Response $response
-     * @return bool|null
-     */
     public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 200;

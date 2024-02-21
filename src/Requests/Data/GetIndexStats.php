@@ -2,43 +2,36 @@
 
 namespace Probots\Pinecone\Requests\Index\Vectors;
 
-use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
-use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * @link https://docs.pinecone.io/reference/upsert
+ * @link https://docs.pinecone.io/reference/describe_index_stats_post
  */
-class UpsertVectors extends Request implements HasBody
+class GetIndexStats extends Request
 {
-    use HasJsonBody;
-
     protected Method $method = Method::POST;
 
     public function __construct(
-        protected array   $vectors = [],
-        protected ?string $namespace = null,
+        protected array $filter = []
     ) {}
 
     public function resolveEndpoint(): string
     {
-        return '/vectors/upsert';
+        return '/describe_index_stats';
     }
 
     protected function defaultBody(): array
     {
+        $payload = [];
 
-        $payload = [
-            'vectors' => $this->vectors,
-        ];
-
-        if ($this->namespace) {
-            $payload['namespace'] = $this->namespace;
+        if (count($this->filter) > 0) {
+            $payload['filter'] = $this->filter;
         }
         return $payload;
     }
+
 
     public function hasRequestFailed(Response $response): ?bool
     {

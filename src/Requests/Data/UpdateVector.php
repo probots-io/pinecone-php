@@ -3,44 +3,21 @@
 namespace Probots\Pinecone\Requests\Index\Vectors;
 
 use Saloon\Contracts\Body\HasBody;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
  * @link https://docs.pinecone.io/reference/update
- *
- * @response
- * object (empty)
- *
- * @error_response
- * object
- * code | integer
- * message | string
- * details | array of objects
- *   typeUrl | string
- *   value | string
  */
 class UpdateVector extends Request implements HasBody
 {
     use HasJsonBody;
 
-    /**
-     * @var Method
-     */
     protected Method $method = Method::POST;
 
-    /**
-     * @param array $index
-     * @param string $id
-     * @param array $values
-     * @param array $sparseValues
-     * @param array $setMetadata
-     * @param string|null $namespace
-     */
     public function __construct(
-        protected array   $index,
         protected string  $id,
         protected array   $values = [],
         protected array   $sparseValues = [],
@@ -48,9 +25,6 @@ class UpdateVector extends Request implements HasBody
         protected ?string $namespace = null,
     ) {}
 
-    /**
-     * @return string[]
-     */
     protected function defaultBody(): array
     {
         $payload = [
@@ -76,19 +50,11 @@ class UpdateVector extends Request implements HasBody
         return $payload;
     }
 
-
-    /**
-     * @return string
-     */
     public function resolveEndpoint(): string
     {
-        return 'https://' . $this->index['status']['host'] . '/vectors/update';
+        return '/vectors/update';
     }
 
-    /**
-     * @param Response $response
-     * @return bool|null
-     */
     public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 200;

@@ -2,15 +2,11 @@
 
 namespace Probots\Pinecone\Resources;
 
-use Saloon\Contracts\Connector;
+use Probots\Pinecone\Client;
 
 class ControlResource extends Resource
 {
-    /**
-     * @param Connector $connector
-     * @param string|null $name
-     */
-    public function __construct(protected Connector $connector)
+    public function __construct(protected Client $connector)
     {
         parent::__construct($connector);
     }

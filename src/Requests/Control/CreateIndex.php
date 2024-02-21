@@ -9,14 +9,6 @@ use Saloon\Traits\Body\HasJsonBody;
 
 /**
  * @link https://docs.pinecone.io/reference/create_index
- *
- * @response
- * string ""
- *
- * @error_codes
- * 400 | Bad request. Encountered when request exceeds quota or an invalid index name.
- * 409 | Index of given name already exists.
- * 500 | Internal error. Can be caused by invalid parameters.
  */
 class CreateIndex extends Request
 {
@@ -124,7 +116,7 @@ class CreateIndex extends Request
         return $payload;
     }
 
-    public function hasRequestFailed(Response|\Saloon\Contracts\Response $response): ?bool
+    public function hasRequestFailed(Response $response): ?bool
     {
         return $response->status() !== 201;
     }

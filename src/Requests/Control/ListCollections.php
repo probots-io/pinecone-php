@@ -8,9 +8,6 @@ use Saloon\Http\Response;
 
 /**
  * @link https://docs.pinecone.io/reference/list_collections
- *
- * @response
- * array of strings "$collectionName"
  */
 class ListCollections extends Request
 {
