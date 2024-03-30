@@ -76,6 +76,8 @@ $pinecone = new Pinecone($apiKey, $indexHost);
 
 // all control AND data methods are available now
 ```
+> **Info**
+> The index host should include `https://`, which you may need to prepend to the value returned from Pinecone.
 
 ## Responses
 
