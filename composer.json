@@ -1,5 +1,5 @@
 {
-  "name": "scotteuser/pinecone-php",
+  "name": "probots-io/pinecone-php",
   "description": "Unofficial PHP Client for Pinecone Vector Database (pinecone.io)",
   "type": "library",
   "homepage": "https://probots.io",
