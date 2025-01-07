@@ -29,7 +29,6 @@ class UpsertVectors extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-
         $payload = [
             'vectors' => $this->vectors,
         ];
