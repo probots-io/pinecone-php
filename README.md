@@ -187,7 +187,7 @@ Work(s) with your collections too.
 [Pinecone Docs](https://docs.pinecone.io/reference/create_collection)
 
 ```php
-$response = $pinecone->control()->collections('my-collection')->create(
+$response = $pinecone->control()->collection('my-collection')->create(
     source: 'my-index'
 );
 
@@ -201,7 +201,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/describe_collection)
 
 ```php
-$response = $pinecone->control()->collections('my-collection')->describe();
+$response = $pinecone->control()->collection('my-collection')->describe();
 
 if($response->successful()) {
     // 
@@ -213,7 +213,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/list_collections)
 
 ```php
-$response = $pinecone->control()->collections()->list();
+$response = $pinecone->control()->collection()->list();
 
 if($response->successful()) {
     // 
@@ -225,7 +225,7 @@ if($response->successful()) {
 [Pinecone Docs](https://docs.pinecone.io/reference/delete_collection)
 
 ```php
-$response = $pinecone->control()->collections('my-collection')->delete();
+$response = $pinecone->control()->collection('my-collection')->delete();
 
 if($response->successful()) {
     // 
