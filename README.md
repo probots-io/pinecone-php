@@ -79,6 +79,9 @@ $pinecone = new Pinecone($apiKey, $indexHost);
 > **Info**
 > The index host should include `https://`, which you may need to prepend to the value returned from Pinecone.
 
+> **Info**
+> The index host should include `https://`, which you may need to prepend to the value returned from Pinecone.
+
 ## Responses
 
 All responses are returned as a `Response` object.
