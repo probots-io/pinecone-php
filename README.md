@@ -336,6 +336,20 @@ if($response->successful()) {
 }
 ```
 
+### List Vectors
+
+[Pinecone Docs](https://docs.pinecone.io/reference/api/2025-01/data-plane/list)
+
+```php
+$response = $pinecone->data()->vectors()->list(
+    'vector_'
+);
+
+if($response->successful()) {
+    // 
+}
+```
+
 ## Testing
 
 Testing is done via PestPHP. You can run the tests by running `./vendor/bin/pest` in the root of the project.

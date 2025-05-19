@@ -83,4 +83,12 @@ class VectorResource extends Resource
             namespace: $namespace
         ));
     }
+
+    public function list(string $prefix, ?string $namespace = null): Response
+    {
+        return $this->connector->send(new Data\ListVectors(
+            prefix: $prefix,
+            namespace: $namespace
+        ));
+    }
 }
