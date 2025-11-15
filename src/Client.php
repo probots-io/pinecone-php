@@ -69,7 +69,8 @@ class Client extends Connector implements ClientContract
         return [
             'Api-Key'      => $this->apiKey,
             'Accept'       => 'application/json;',
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'User-Agent'   => 'probots_io:pinecone_php'
         ];
     }
 
