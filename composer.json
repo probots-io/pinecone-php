@@ -18,7 +18,7 @@
     }
   ],
   "require": {
-    "php": "^8.3",
+    "php": "^8.2",
     "saloonphp/saloon": "^3.6"
   },
   "autoload": {
