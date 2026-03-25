@@ -19,7 +19,7 @@
   ],
   "require": {
     "php": "^8.3",
-    "saloonphp/saloon": "^3.6"
+    "saloonphp/saloon": "^4.0"
   },
   "autoload": {
     "psr-4": {
